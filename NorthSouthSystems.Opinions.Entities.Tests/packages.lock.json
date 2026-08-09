@@ -430,7 +430,7 @@
           "Microsoft.Extensions.Logging.Abstractions": "[10.0.10, )",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "[10.0.10, )",
           "Nerdbank.MessagePack": "[1.2.36, )",
-          "NorthSouthSystems.MessagePackable": "[1.1.1-beta, )",
+          "NorthSouthSystems.MessagePackable": "[1.1.9-beta, )",
           "NorthSouthSystems.Opinions.BCL": "[1.0.0, )",
           "NorthSouthSystems.Opinions.Entities.Vogen": "[1.0.0, )",
           "NorthSouthSystems.Opinions.FluentValidation": "[1.0.0, )",
@@ -564,13 +564,13 @@
       },
       "NorthSouthSystems.MessagePackable": {
         "type": "CentralTransitive",
-        "requested": "[1.1.1-beta, )",
-        "resolved": "1.1.1-beta",
-        "contentHash": "IgoG+q1QZt1UrosrN4v96TDZPNRkgu46IfWexApvIj6DBONzp7MW9ROst5Czpf+wQXXzxx+ZjlOGFwQKH9Redw==",
+        "requested": "[1.1.9-beta, )",
+        "resolved": "1.1.9-beta",
+        "contentHash": "niAAv/blPOPIX1zOXxeJxAxsBpiIG2E/0w2e4nlPLlb7/IF3vicj58EWp/xlfbfsG9AsA4gK8se7Ye0+z3k2cw==",
         "dependencies": {
-          "Nerdbank.MessagePack": "1.2.30",
+          "Nerdbank.MessagePack": "1.2.36",
           "NorthSouthSystems.Text": "8.0.1",
-          "System.IO.Hashing": "10.0.9"
+          "System.IO.Hashing": "10.0.10"
         }
       },
       "PolyType": {
