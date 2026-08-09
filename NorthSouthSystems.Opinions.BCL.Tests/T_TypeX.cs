@@ -9,7 +9,7 @@ public class T_TypeX
         typeof(DateTime).Default().Should().Be(default(DateTime));
         typeof(ImmutableArray<int>).Default().Should().Be(default(ImmutableArray<int>));
 
-        typeof(object).Default().Should().Be(default(object));
+        typeof(object).Default().Should().Be(default);
         typeof(string).Default().Should().Be(default(string));
     }
 

@@ -17,7 +17,7 @@ public class T_ConvertX_ArgumentExceptions
         act = () => new ConvertX().ConvertType("", null);
         act.Should().ThrowExactly<ArgumentNullException>();
 
-        act = () => new ConvertX().TryConvertType("", null, out var _);
+        act = () => new ConvertX().TryConvertType("", null, out _);
         act.Should().ThrowExactly<ArgumentNullException>();
     }
 }

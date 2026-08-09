@@ -8,16 +8,16 @@ public static class CultureInfoX
     {
         Throw.IfNull(action);
 
-        var currentCulture = CultureInfo.CurrentCulture;
+        var currentCulture = CurrentCulture;
 
         try
         {
-            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(name);
+            CurrentCulture = GetCultureInfo(name);
             action();
         }
         finally
         {
-            CultureInfo.CurrentCulture = currentCulture;
+            CurrentCulture = currentCulture;
         }
     }
 }

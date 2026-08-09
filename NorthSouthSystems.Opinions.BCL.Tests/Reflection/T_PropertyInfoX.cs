@@ -52,7 +52,10 @@ public sealed class T_PropertyInfoX
     }
 
     // For Exceptions.
-    public struct TheStruct { public string StringProperty => "struct"; }
+    public struct TheStruct
+    {
+        public string StringProperty => "struct";
+    }
 
     public sealed class GetValueCompiled
     {

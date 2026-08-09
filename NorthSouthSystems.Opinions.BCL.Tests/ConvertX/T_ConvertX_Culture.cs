@@ -8,16 +8,16 @@ public class T_ConvertX_Culture
     public void Culture()
     {
         // https://stackoverflow.com/a/8492527
-        var negativeBangCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+        var negativeBangCulture = (CultureInfo)InvariantCulture.Clone();
         negativeBangCulture.NumberFormat.NegativeSign = "!";
 
-        IsConvertedTrue("1", CultureInfo.InvariantCulture, 1);
+        IsConvertedTrue("1", InvariantCulture, 1);
         IsConvertedTrue("1", negativeBangCulture, 1);
 
-        IsConvertedFalse("!1", CultureInfo.InvariantCulture);
+        IsConvertedFalse("!1", InvariantCulture);
         IsConvertedTrue("!1", negativeBangCulture, -1);
 
-        IsConvertedTrue("-1", CultureInfo.InvariantCulture, -1);
+        IsConvertedTrue("-1", InvariantCulture, -1);
         IsConvertedFalse("-1", negativeBangCulture);
 
         static void IsConvertedTrue(string value, CultureInfo culture, int expectedConvertedValue)

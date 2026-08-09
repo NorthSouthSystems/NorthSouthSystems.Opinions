@@ -7,7 +7,7 @@ public abstract class T_TypeConverter<TTypeConverter>
 
     protected ConvertTypeRequest Convert(object value, Type conversionType, IFormatProvider provider = null)
     {
-        var request = new ConvertTypeRequest(value, conversionType, provider ?? CultureInfo.CurrentCulture);
+        var request = new ConvertTypeRequest(value, conversionType, provider ?? CurrentCulture);
         _typeConverter.Convert(request);
 
         return request;

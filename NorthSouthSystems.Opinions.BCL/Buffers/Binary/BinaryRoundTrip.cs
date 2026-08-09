@@ -23,18 +23,89 @@ public static class BinaryRoundTrip
 
     // WriteBase64 Adapters
 
-    public static string WriteBase64Bool(bool value) { string? s = null; WriteBase64Bool(value, b64 => s = b64); return s!; }
-    public static string WriteBase64Byte(byte value) { string? s = null; WriteBase64Byte(value, b64 => s = b64); return s!; }
-    public static string WriteBase64SByte(sbyte value) { string? s = null; WriteBase64SByte(value, b64 => s = b64); return s!; }
-    public static string WriteBase64Short(short value) { string? s = null; WriteBase64Short(value, b64 => s = b64); return s!; }
-    public static string WriteBase64UShort(ushort value) { string? s = null; WriteBase64UShort(value, b64 => s = b64); return s!; }
-    public static string WriteBase64Int(int value) { string? s = null; WriteBase64Int(value, b64 => s = b64); return s!; }
-    public static string WriteBase64UInt(uint value) { string? s = null; WriteBase64UInt(value, b64 => s = b64); return s!; }
-    public static string WriteBase64Long(long value) { string? s = null; WriteBase64Long(value, b64 => s = b64); return s!; }
-    public static string WriteBase64ULong(ulong value) { string? s = null; WriteBase64ULong(value, b64 => s = b64); return s!; }
-    public static string WriteBase64Double(double value) { string? s = null; WriteBase64Double(value, b64 => s = b64); return s!; }
-    public static string WriteBase64Decimal(decimal value) { string? s = null; WriteBase64Decimal(value, b64 => s = b64); return s!; }
-    public static string WriteBase64String(string value) { string? s = null; WriteBase64String(value, b64 => s = b64); return s!; }
+    public static string WriteBase64Bool(bool value)
+    {
+        string? s = null;
+        WriteBase64Bool(value, b64 => s = b64);
+        return s!;
+    }
+
+    public static string WriteBase64Byte(byte value)
+    {
+        string? s = null;
+        WriteBase64Byte(value, b64 => s = b64);
+        return s!;
+    }
+
+    public static string WriteBase64SByte(sbyte value)
+    {
+        string? s = null;
+        WriteBase64SByte(value, b64 => s = b64);
+        return s!;
+    }
+
+    public static string WriteBase64Short(short value)
+    {
+        string? s = null;
+        WriteBase64Short(value, b64 => s = b64);
+        return s!;
+    }
+
+    public static string WriteBase64UShort(ushort value)
+    {
+        string? s = null;
+        WriteBase64UShort(value, b64 => s = b64);
+        return s!;
+    }
+
+    public static string WriteBase64Int(int value)
+    {
+        string? s = null;
+        WriteBase64Int(value, b64 => s = b64);
+        return s!;
+    }
+
+    public static string WriteBase64UInt(uint value)
+    {
+        string? s = null;
+        WriteBase64UInt(value, b64 => s = b64);
+        return s!;
+    }
+
+    public static string WriteBase64Long(long value)
+    {
+        string? s = null;
+        WriteBase64Long(value, b64 => s = b64);
+        return s!;
+    }
+
+    public static string WriteBase64ULong(ulong value)
+    {
+        string? s = null;
+        WriteBase64ULong(value, b64 => s = b64);
+        return s!;
+    }
+
+    public static string WriteBase64Double(double value)
+    {
+        string? s = null;
+        WriteBase64Double(value, b64 => s = b64);
+        return s!;
+    }
+
+    public static string WriteBase64Decimal(decimal value)
+    {
+        string? s = null;
+        WriteBase64Decimal(value, b64 => s = b64);
+        return s!;
+    }
+
+    public static string WriteBase64String(string value)
+    {
+        string? s = null;
+        WriteBase64String(value, b64 => s = b64);
+        return s!;
+    }
 
     public static void WriteBase64Bool(bool value, Action<string> writer) => WriteBool(value, bytes => writer(Convert.ToBase64String(bytes)));
     public static void WriteBase64Byte(byte value, Action<string> writer) => WriteByte(value, bytes => writer(Convert.ToBase64String(bytes)));

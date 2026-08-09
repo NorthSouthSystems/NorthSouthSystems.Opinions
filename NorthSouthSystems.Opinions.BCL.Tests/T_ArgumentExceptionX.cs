@@ -24,7 +24,7 @@
         e.Message.Should().StartWith("foo" + nl + "bar (Parameter");
         e.ParamName.Should().Be("[\"foo\", \"bar\"]");
 
-        act = () => ArgumentExceptionX.ThrowIfAny(["foo", "bar"], messagePrefix: "The prefix");
+        act = () => ArgumentExceptionX.ThrowIfAny(["foo", "bar"], "The prefix");
         e = act.Should().ThrowExactly<ArgumentException>().Which;
         e.Message.Should().StartWith("The prefix" + nl + "foo" + nl + "bar (Parameter");
         e.ParamName.Should().Be("[\"foo\", \"bar\"]");

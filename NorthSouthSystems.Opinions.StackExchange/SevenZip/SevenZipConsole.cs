@@ -37,6 +37,6 @@ internal static class SevenZipConsole
         process.WaitForExit();
 
         if (process.ExitCode != 0)
-            throw new UnreachableException(process.ExitCode.ToString(CultureInfo.InvariantCulture));
+            throw new UnreachableException(process.ExitCode.ToString(InvariantCulture));
     }
 }

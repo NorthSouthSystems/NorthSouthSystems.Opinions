@@ -60,7 +60,7 @@ public class StackExchangeSiteSerializer
 
             using var xmlReader = XmlReader.Create(xmlFilepath);
 
-            foreach (T t in XElementSimpleStreamer.Stream(xmlReader, "row").Select(fromXElementConstructor))
+            foreach (var t in XElementSimpleStreamer.Stream(xmlReader, "row").Select(fromXElementConstructor))
                 yield return t;
         }
     }

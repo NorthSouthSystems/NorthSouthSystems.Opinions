@@ -20,18 +20,18 @@ public class T_ConvertX
     public void IsConvertedTrue(object value, Type conversionType, object expectedConvertedValue)
     {
         _convertX.ConvertType(value, conversionType).Should().Be(expectedConvertedValue);
-        _convertX.ConvertType(value, conversionType, CultureInfo.CurrentCulture).Should().Be(expectedConvertedValue);
-        _convertX.ConvertType(value, conversionType, CultureInfo.InvariantCulture).Should().Be(expectedConvertedValue);
+        _convertX.ConvertType(value, conversionType, CurrentCulture).Should().Be(expectedConvertedValue);
+        _convertX.ConvertType(value, conversionType, InvariantCulture).Should().Be(expectedConvertedValue);
 
         object convertedValue;
 
         _convertX.TryConvertType(value, conversionType, out convertedValue).Should().BeTrue();
         convertedValue.Should().Be(expectedConvertedValue);
 
-        _convertX.TryConvertType(value, conversionType, CultureInfo.CurrentCulture, out convertedValue).Should().BeTrue();
+        _convertX.TryConvertType(value, conversionType, CurrentCulture, out convertedValue).Should().BeTrue();
         convertedValue.Should().Be(expectedConvertedValue);
 
-        _convertX.TryConvertType(value, conversionType, CultureInfo.InvariantCulture, out convertedValue).Should().BeTrue();
+        _convertX.TryConvertType(value, conversionType, InvariantCulture, out convertedValue).Should().BeTrue();
         convertedValue.Should().Be(expectedConvertedValue);
     }
 

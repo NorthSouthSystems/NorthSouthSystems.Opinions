@@ -120,7 +120,7 @@ public class ConvertX
     private ConvertTypeRequest ConvertTypeImpl(object? value, Type conversionType,
         IFormatProvider? provider, bool throwIntermediateExceptions, bool abortIntermediateExceptions)
     {
-        var request = new ConvertTypeRequest(value, conversionType, provider ?? CultureInfo.CurrentCulture);
+        var request = new ConvertTypeRequest(value, conversionType, provider ?? CurrentCulture);
 
         foreach (var typeConverter in _typeConverters)
         {
