@@ -80,6 +80,11 @@
         "resolved": "10.0.10",
         "contentHash": "z/2xXlFw2aLGjHyEm6E0tQ+In6VfzQzTrtArbQ2c0TQE16ZbyDCMGPvaUT9I0s8rgy9sRWlU2P9waW37qV04qA=="
       },
+      "Microsoft.Extensions.DependencyModel": {
+        "type": "Transitive",
+        "resolved": "10.0.0",
+        "contentHash": "RFYJR7APio/BiqdQunRq6DB+nDB6nc2qhHr77mlvZ0q0BT8PubMXN7XicmfzCbrDE/dzhBnUKBRXLTcqUiZDGg=="
+      },
       "Microsoft.Extensions.Options": {
         "type": "Transitive",
         "resolved": "10.0.10",
@@ -108,12 +113,6 @@
           "NorthSouthSystems.Opinions.BCL": "[1.0.0, )",
           "NorthSouthSystems.Text": "[8.0.1, )"
         }
-      },
-      "Microsoft.Extensions.DependencyModel": {
-        "type": "CentralTransitive",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "rfZA1RjR021RPqSmIPovfz2aOd79TGqJ9BengbjnzIISOVwjLmuSDnhCMmiY/1c6iYvGolQ1iNGzkav0u11XEA=="
       },
       "System.IO.Hashing": {
         "type": "CentralTransitive",
