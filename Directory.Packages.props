@@ -3,7 +3,7 @@
         <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 
-        <DotNetVersion>10.0.10</DotNetVersion>
+        <DotNetVersion>10.0.11</DotNetVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,13 +12,13 @@
         <PackageVersion Include="CsCheck" Version="4.8.0"/>
         <PackageVersion Include="FluentValidation" Version="12.1.1"/>
         <PackageVersion Include="MemoryPack" Version="1.21.4"/>
-        <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.302"/>
+        <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.400"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(DotNetVersion)"/>
         <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(DotNetVersion)"/>
         <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(DotNetVersion)"/>
         <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(DotNetVersion)"/>
         <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(DotNetVersion)"/>
-        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1"/>
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.9.0"/>
         <PackageVersion Include="morelinq" Version="4.4.0"/>
         <PackageVersion Include="Nerdbank.GitVersioning" Version="3.10.91"/>
         <PackageVersion Include="Nerdbank.MessagePack" Version="1.2.36"/>
