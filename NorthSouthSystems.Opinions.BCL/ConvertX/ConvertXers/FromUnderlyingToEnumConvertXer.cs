@@ -1,6 +1,6 @@
 ﻿namespace NorthSouthSystems;
 
-public class EnumFromUnderlyingConvertXer : IConvertXer
+public class FromUnderlyingToEnumConvertXer : IConvertXer
 {
     public void Convert(ConvertXRequest request)
     {

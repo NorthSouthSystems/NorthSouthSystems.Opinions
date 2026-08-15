@@ -8,7 +8,7 @@ public class T_ConvertX_ArgumentExceptions
         act = () => new ConvertX((IEnumerable<IConvertXer>)null);
         act.Should().ThrowExactly<ArgumentNullException>();
 
-        act = () => new ConvertX(new StringEmptyConvertXer(), null);
+        act = () => new ConvertX(new FromStringEmptyConvertXer(), null);
         act.Should().ThrowExactly<ArgumentNullException>();
 
         act = () => ConvertX.Default.ConvertType("", null);

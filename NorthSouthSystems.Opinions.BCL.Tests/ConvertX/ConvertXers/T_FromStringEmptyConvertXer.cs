@@ -1,16 +1,25 @@
 ﻿using static T_ConvertXer;
 
-public class T_NullConvertXer
+public class T_FromStringEmptyConvertXer
 {
-    private static readonly NullConvertXer Converter = new();
+    private static readonly FromStringEmptyConvertXer Converter = new();
+
+    [Fact]
+    public void IsConvertedTrueNoOp()
+    {
+        var request = Convert(Converter, string.Empty, typeof(string));
+
+        request.IsConverted.Should().BeTrue();
+        request.ConvertedValue.As<string>().Should().BeEmpty();
+    }
 
     [Theory]
-    [InlineData(typeof(string))]
     [InlineData(typeof(int?))]
+    [InlineData(typeof(DayOfWeek?))]
     [InlineData(typeof(IConvertXer))]
-    public void IsConvertedTrue(Type conversionType)
+    public void IsConvertedTrueToNull(Type conversionType)
     {
-        var request = Convert(Converter, null, conversionType);
+        var request = Convert(Converter, string.Empty, conversionType);
 
         request.IsConverted.Should().BeTrue();
         request.ConvertedValue.Should().BeNull();

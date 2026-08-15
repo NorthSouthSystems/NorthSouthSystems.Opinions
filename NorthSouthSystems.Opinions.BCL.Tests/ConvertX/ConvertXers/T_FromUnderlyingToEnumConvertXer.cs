@@ -1,8 +1,8 @@
 ﻿using static T_ConvertXer;
 
-public class T_EnumFromUnderlyingConvertXer
+public class T_FromUnderlyingToEnumConvertXer
 {
-    private static readonly EnumFromUnderlyingConvertXer Converter = new();
+    private static readonly FromUnderlyingToEnumConvertXer Converter = new();
 
     // An Enum can be cast from any value that is in range of its UnderlyingType, hence the 8th day of the week test.
     public static IEnumerable<object[]> IsConvertedTrueData =>
