@@ -24,6 +24,7 @@ public class ConvertX
     [
         new FromStringEmptyConvertXer(),
         new FromUnderlyingToEnumConvertXer(),
+        new ToStringConvertXer(),
         new SystemConvertConvertXer()
     ];
 
