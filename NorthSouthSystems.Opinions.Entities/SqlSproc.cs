@@ -17,7 +17,11 @@ public static class SqlSprocExtensions
         string schemaName, string sprocName, params SqlParameter[] parameters) =>
         Sproc(Throw.IfNull(database).SqlQueryRaw<TResult>, schemaName, sprocName, parameters);
 
-    private static IQueryable<T> Sproc<T>(Func<string, SqlParameter[], IQueryable<T>> sqlExecutor,
+    public static Task<int> ExecuteSqlSprocAsync(this DatabaseFacade database,
+        string schemaName, string sprocName, params SqlParameter[] parameters) =>
+        Sproc(Throw.IfNull(database).ExecuteSqlRawAsync, schemaName, sprocName, parameters);
+
+    private static T Sproc<T>(Func<string, SqlParameter[], T> sqlExecutor,
         string schemaName, string sprocName, params SqlParameter[] parameters)
     {
         Throw.IfNullOrWhiteSpace(schemaName);
