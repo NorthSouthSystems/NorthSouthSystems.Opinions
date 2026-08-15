@@ -6,7 +6,7 @@ public class StringEmptyConvertXer : IConvertXer
     {
         if (Throw.IfNull(request).Value is string { Length: 0 })
         {
-            if (request.ConversionType == typeof(string))
+            if (request.ConversionTypeFlattened == typeof(string))
                 request.Converted(request.Value);
             else if (request.ConversionTypeAllowsNull)
                 request.Converted(null);

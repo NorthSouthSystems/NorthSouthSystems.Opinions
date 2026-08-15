@@ -5,15 +5,15 @@ public class ConvertXRequest
     internal ConvertXRequest(object? value, Type conversionType, CultureInfo culture)
     {
         Value = value;
-        ConversionType = Throw.IfNull(conversionType);
+        ConversionTypeAllowsNull = !Throw.IfNull(conversionType).IsValueType || conversionType.IsGenericNullable();
+        ConversionTypeFlattened = conversionType.FlattenGenericNullable();
         Culture = Throw.IfNull(culture);
     }
 
     public object? Value { get; }
-    public Type ConversionType { get; }
+    public bool ConversionTypeAllowsNull { get; }
+    public Type ConversionTypeFlattened { get; }
     public CultureInfo Culture { get; }
-
-    public bool ConversionTypeAllowsNull => !ConversionType.IsValueType || ConversionType.IsGenericNullable();
 
     public bool IsConverted { get; private set; }
     public object? ConvertedValue { get; private set; }
@@ -31,13 +31,18 @@ public class ConvertXRequest
     {
         Throw.IfNull(exception);
 
-        _exceptions ??= new();
+        _exceptions ??= [];
         _exceptions.Add(exception);
     }
 
     internal Exception ExceptionToThrow()
     {
-        string message = string.Create(InvariantCulture, $"{Value?.GetType().FullName} : {ConversionType.FullName}");
+        bool genericNullable = ConversionTypeAllowsNull && ConversionTypeFlattened.IsValueType;
+
+        string conversionTypeName = string.Create(InvariantCulture,
+            $"{(genericNullable ? "System.Nullable<" : string.Empty)}{ConversionTypeFlattened.FullName}{(genericNullable ? ">" : string.Empty)}");
+
+        string message = string.Create(InvariantCulture, $"{Value?.GetType().FullName} : {conversionTypeName}");
 
         if (_exceptions == null)
             return new NotSupportedException(message);

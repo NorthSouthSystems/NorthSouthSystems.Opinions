@@ -148,6 +148,7 @@ public class T_ConvertX
 
     private class AlwaysDefaultConvertXer : IConvertXer
     {
-        public void Convert(ConvertXRequest request) => request.Converted(request.ConversionType.Default());
+        public void Convert(ConvertXRequest request) =>
+            request.Converted(request.ConversionTypeAllowsNull ? null : request.ConversionTypeFlattened.Default());
     }
 }

@@ -5,7 +5,7 @@ public class IdentityConvertXer : IConvertXer
     public void Convert(ConvertXRequest request)
     {
         // All Nullable<T> instances box as their UnderlyingType.
-        if (Throw.IfNull(request).Value?.GetType() == request.ConversionType.FlattenGenericNullable())
+        if (Throw.IfNull(request).Value?.GetType() == request.ConversionTypeFlattened)
             request.Converted(request.Value);
     }
 }
