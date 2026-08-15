@@ -1,8 +1,8 @@
 ﻿namespace NorthSouthSystems;
 
-public class StringEmptyTypeConverter : ITypeConverter
+public class StringEmptyConvertXer : IConvertXer
 {
-    public void Convert(ConvertTypeRequest request)
+    public void Convert(ConvertXRequest request)
     {
         if (Throw.IfNull(request).Value is string { Length: 0 })
         {

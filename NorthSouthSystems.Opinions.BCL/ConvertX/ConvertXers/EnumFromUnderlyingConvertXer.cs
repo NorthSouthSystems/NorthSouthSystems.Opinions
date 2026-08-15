@@ -1,8 +1,8 @@
 ﻿namespace NorthSouthSystems;
 
-public class EnumFromUnderlyingTypeConverter : ITypeConverter
+public class EnumFromUnderlyingConvertXer : IConvertXer
 {
-    public void Convert(ConvertTypeRequest request)
+    public void Convert(ConvertXRequest request)
     {
         var conversionType = Throw.IfNull(request).ConversionType.FlattenGenericNullable();
 

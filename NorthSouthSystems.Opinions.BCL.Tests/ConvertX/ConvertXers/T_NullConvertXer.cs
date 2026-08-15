@@ -1,9 +1,9 @@
-﻿public class T_NullTypeConverter : T_TypeConverter<NullTypeConverter>
+﻿public class TNullConvertXer : T_ConvertXer<NullConvertXer>
 {
     [Theory]
     [InlineData(typeof(string))]
     [InlineData(typeof(int?))]
-    [InlineData(typeof(ITypeConverter))]
+    [InlineData(typeof(IConvertXer))]
     public void IsConvertedTrue(Type conversionType)
     {
         var request = Convert(null, conversionType);

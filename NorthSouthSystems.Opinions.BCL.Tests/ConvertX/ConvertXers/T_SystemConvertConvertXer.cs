@@ -1,4 +1,4 @@
-﻿public class T_SystemConvertConverter : T_TypeConverter<SystemConvertTypeConverter>
+﻿public class TSystemConvertConvertXer : T_ConvertXer<SystemConvertConvertXer>
 {
     [Theory]
     [InlineData("true", typeof(bool), true)]

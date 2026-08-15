@@ -2,9 +2,9 @@
 
 namespace NorthSouthSystems;
 
-public class ConvertTypeRequest
+public class ConvertXRequest
 {
-    internal ConvertTypeRequest(object? value, Type conversionType, IFormatProvider provider)
+    internal ConvertXRequest(object? value, Type conversionType, IFormatProvider provider)
     {
         Value = value;
         ConversionType = conversionType ?? throw new ArgumentNullException(nameof(conversionType));

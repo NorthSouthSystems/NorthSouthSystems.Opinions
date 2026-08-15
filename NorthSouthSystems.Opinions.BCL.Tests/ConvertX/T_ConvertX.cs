@@ -1,17 +1,17 @@
 public class T_ConvertX
 {
     [Theory]
-    // NoOpTypeConverter
+    // IdentityConvertXer
     [InlineData("foobar", typeof(string), "foobar")]
     [InlineData(1, typeof(int), 1)]
-    // NullTypeConverter
+    // NullConvertXer
     [InlineData(null, typeof(string), null)]
     [InlineData(null, typeof(int?), null)]
-    // StringEmptyTypeConverter
+    // StringEmptyConvertXer
     [InlineData("", typeof(int?), null)]
-    // EnumFromUnderlyingTypeConverter
+    // EnumFromUnderlyingConvertXer
     [InlineData(1, typeof(DayOfWeek), DayOfWeek.Monday)]
-    // SystemConvertTypeConverter
+    // SystemConvertConvertXer
     [InlineData("true", typeof(bool), true)]
     public void IsConvertedTrue(object value, Type conversionType, object expectedConvertedValue)
     {
@@ -83,7 +83,7 @@ public class T_ConvertX
         // This is technically not using the "DefaultTypeConverters" because there is no way to generate an
         // AggregateException when doing so. To generate an AggregateException, we have SystemConvertTypeConverter
         // execute twice.
-        var convertX = new ConvertX(ConvertX.DefaultTypeConverters.Append(new SystemConvertTypeConverter()));
+        var convertX = new ConvertX(ConvertX.DefaultConverters.Append(new SystemConvertConvertXer()));
 
         Action act;
         string value = "foobar";
@@ -115,7 +115,7 @@ public class T_ConvertX
         // This is technically not using the "DefaultTypeConverters" because there is no way to detect an
         // intermediate Exception in the TryConvertType methods when doing so. To generate a TryConvertType
         // detectable intermediate Exception, we append a converter that will always succeed.
-        var convertX = new ConvertX(ConvertX.DefaultTypeConverters.Append(new AlwaysDefaultConverter()));
+        var convertX = new ConvertX(ConvertX.DefaultConverters.Append(new AlwaysDefaultConvertXer()));
 
         Action act;
         string value = "foobar";
@@ -146,8 +146,8 @@ public class T_ConvertX
         outObject.Should().Be(0);
     }
 
-    private class AlwaysDefaultConverter : ITypeConverter
+    private class AlwaysDefaultConvertXer : IConvertXer
     {
-        public void Convert(ConvertTypeRequest request) => request.Converted(request.ConversionType.Default());
+        public void Convert(ConvertXRequest request) => request.Converted(request.ConversionType.Default());
     }
 }

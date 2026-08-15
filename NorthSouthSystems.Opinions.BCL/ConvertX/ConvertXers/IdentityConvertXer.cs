@@ -1,8 +1,8 @@
 ﻿namespace NorthSouthSystems;
 
-public class IdentityTypeConverter : ITypeConverter
+public class IdentityConvertXer : IConvertXer
 {
-    public void Convert(ConvertTypeRequest request)
+    public void Convert(ConvertXRequest request)
     {
         // All Nullable<T> instances box as their UnderlyingType.
         if (Throw.IfNull(request).Value?.GetType() == request.ConversionType.FlattenGenericNullable())

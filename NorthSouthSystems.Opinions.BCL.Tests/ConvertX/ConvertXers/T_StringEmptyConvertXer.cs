@@ -1,4 +1,4 @@
-﻿public class T_StringEmptyTypeConverter : T_TypeConverter<StringEmptyTypeConverter>
+﻿public class TStringEmptyConvertXer : T_ConvertXer<StringEmptyConvertXer>
 {
     [Fact]
     public void IsConvertedTrueNoOp()
@@ -12,7 +12,7 @@
     [Theory]
     [InlineData(typeof(int?))]
     [InlineData(typeof(DayOfWeek?))]
-    [InlineData(typeof(ITypeConverter))]
+    [InlineData(typeof(IConvertXer))]
     public void IsConvertedTrueToNull(Type conversionType)
     {
         var request = Convert(string.Empty, conversionType);

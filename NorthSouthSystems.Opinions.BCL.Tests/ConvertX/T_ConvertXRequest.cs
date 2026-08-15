@@ -1,6 +1,4 @@
-using System.Globalization;
-
-public class T_ConvertTypeRequest
+public class T_ConvertXRequest
 {
     [Theory]
     [InlineData(typeof(object), true)]
@@ -10,7 +8,7 @@ public class T_ConvertTypeRequest
     [InlineData(typeof(bool?), true)]
     [InlineData(typeof(int?), true)]
     public void ConversionTypeAllowsNull(Type conversionType, bool expectedAllowsNull) =>
-        new ConvertTypeRequest(null, conversionType, InvariantCulture)
+        new ConvertXRequest(null, conversionType, InvariantCulture)
             .ConversionTypeAllowsNull
             .Should()
             .Be(expectedAllowsNull);
@@ -18,7 +16,7 @@ public class T_ConvertTypeRequest
     [Fact]
     public void ExceptionToThrow()
     {
-        var request = new ConvertTypeRequest("1", typeof(int), InvariantCulture);
+        var request = new ConvertXRequest("1", typeof(int), InvariantCulture);
         Exception exceptionToThrow;
 
         exceptionToThrow = request.ExceptionToThrow();
@@ -43,7 +41,7 @@ public class T_ConvertTypeRequest
     public void ArgumentExceptions()
     {
         Action act;
-        var request = new ConvertTypeRequest("1", typeof(int), InvariantCulture);
+        var request = new ConvertXRequest("1", typeof(int), InvariantCulture);
 
         act = () => request.Exception(null);
         act.Should().ThrowExactly<ArgumentNullException>();

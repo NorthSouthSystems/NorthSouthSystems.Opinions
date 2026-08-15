@@ -1,8 +1,8 @@
 ﻿namespace NorthSouthSystems;
 
-public interface ITypeConverter
+public interface IConvertXer
 {
-    void Convert(ConvertTypeRequest request);
+    void Convert(ConvertXRequest request);
 }
 
 /// <summary>
@@ -14,39 +14,39 @@ public class ConvertX
 {
     // Construction
 
-    public static IEnumerable<ITypeConverter> DefaultTypeConverters { get; } =
+    public static IEnumerable<IConvertXer> DefaultConverters { get; } =
     [
-        new IdentityTypeConverter(),
-        new NullTypeConverter(),
-        new StringEmptyTypeConverter(),
-        new EnumFromUnderlyingTypeConverter(),
-        new SystemConvertTypeConverter()
+        new IdentityConvertXer(),
+        new NullConvertXer(),
+        new StringEmptyConvertXer(),
+        new EnumFromUnderlyingConvertXer(),
+        new SystemConvertConvertXer()
     ];
 
     // Order is important! Must be initialized after DefaultTypeConverters because they are used in the constructor.
     public static ConvertX Default { get; } = new();
 
     public ConvertX()
-        : this(DefaultTypeConverters)
+        : this(DefaultConverters)
     { }
 
-    public ConvertX(params ITypeConverter[] typeConverters)
-        : this((IEnumerable<ITypeConverter>)typeConverters)
+    public ConvertX(params IConvertXer[] converters)
+        : this((IEnumerable<IConvertXer>)converters)
     { }
 
-    public ConvertX(IEnumerable<ITypeConverter> typeConverters)
+    public ConvertX(IEnumerable<IConvertXer> converters)
     {
         // Always "make a copy" of the enumerable in case it is a modifiable collection.
-        _typeConverters = typeConverters?.ToArray() ?? throw new ArgumentNullException(nameof(typeConverters));
+        _converters = [.. Throw.IfNull(converters)];
 
-        if (_typeConverters.Any(tc => tc == null))
-            throw new ArgumentNullException(nameof(typeConverters));
+        if (_converters.Any(c => c is null))
+            throw new ArgumentNullException(nameof(converters));
 
-        if (!_typeConverters.Any())
-            throw new ArgumentOutOfRangeException(nameof(typeConverters));
+        if (!_converters.Any())
+            throw new ArgumentOutOfRangeException(nameof(converters));
     }
 
-    private readonly IEnumerable<ITypeConverter> _typeConverters;
+    private readonly IReadOnlyList<IConvertXer> _converters;
 
     // ConvertType Generic and Object
 
@@ -118,16 +118,16 @@ public class ConvertX
 
     // Implementation
 
-    private ConvertTypeRequest ConvertTypeImpl(object? value, Type conversionType,
+    private ConvertXRequest ConvertTypeImpl(object? value, Type conversionType,
         IFormatProvider? provider, bool throwIntermediateExceptions, bool abortIntermediateExceptions)
     {
-        var request = new ConvertTypeRequest(value, conversionType, provider ?? CurrentCulture);
+        var request = new ConvertXRequest(value, conversionType, provider ?? CurrentCulture);
 
-        foreach (var typeConverter in _typeConverters)
+        foreach (var converter in _converters)
         {
             try
             {
-                typeConverter.Convert(request);
+                converter.Convert(request);
 
                 if (request.IsConverted)
                     return request;

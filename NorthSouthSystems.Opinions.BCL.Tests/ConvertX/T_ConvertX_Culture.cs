@@ -1,5 +1,3 @@
-using System.Globalization;
-
 public class T_ConvertX_Culture
 {
     private static readonly ConvertX _convertX = new();

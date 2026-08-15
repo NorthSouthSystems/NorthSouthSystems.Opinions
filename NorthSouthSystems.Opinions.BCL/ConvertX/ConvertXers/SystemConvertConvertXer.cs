@@ -1,8 +1,8 @@
 ﻿namespace NorthSouthSystems;
 
-public class SystemConvertTypeConverter : ITypeConverter
+public class SystemConvertConvertXer : IConvertXer
 {
-    public void Convert(ConvertTypeRequest request)
+    public void Convert(ConvertXRequest request)
     {
         // System.Convert.ChangeType requires that value implements IConvertible.
         // https://docs.microsoft.com/en-us/dotnet/api/system.convert.changetype?view=netstandard-2.0

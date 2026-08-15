@@ -1,4 +1,4 @@
-﻿public class T_IdentityTypeConverter : T_TypeConverter<IdentityTypeConverter>
+﻿public class TIdentityConvertXer : T_ConvertXer<IdentityConvertXer>
 {
     [Theory]
     [InlineData("", typeof(string))]
