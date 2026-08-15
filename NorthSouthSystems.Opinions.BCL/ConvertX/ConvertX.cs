@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace NorthSouthSystems;
+﻿namespace NorthSouthSystems;
 
 public interface ITypeConverter
 {
@@ -24,6 +22,9 @@ public class ConvertX
         new EnumFromUnderlyingTypeConverter(),
         new SystemConvertTypeConverter()
     ];
+
+    // Order is important! Must be initialized after DefaultTypeConverters because they are used in the constructor.
+    public static ConvertX Default { get; } = new();
 
     public ConvertX()
         : this(DefaultTypeConverters)

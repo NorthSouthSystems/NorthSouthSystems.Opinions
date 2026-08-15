@@ -1,9 +1,5 @@
-using System.Globalization;
-
 public class T_ConvertX
 {
-    private static readonly ConvertX _convertX = new();
-
     [Theory]
     // NoOpTypeConverter
     [InlineData("foobar", typeof(string), "foobar")]
@@ -19,19 +15,19 @@ public class T_ConvertX
     [InlineData("true", typeof(bool), true)]
     public void IsConvertedTrue(object value, Type conversionType, object expectedConvertedValue)
     {
-        _convertX.ConvertType(value, conversionType).Should().Be(expectedConvertedValue);
-        _convertX.ConvertType(value, conversionType, CurrentCulture).Should().Be(expectedConvertedValue);
-        _convertX.ConvertType(value, conversionType, InvariantCulture).Should().Be(expectedConvertedValue);
+        ConvertX.Default.ConvertType(value, conversionType).Should().Be(expectedConvertedValue);
+        ConvertX.Default.ConvertType(value, conversionType, CurrentCulture).Should().Be(expectedConvertedValue);
+        ConvertX.Default.ConvertType(value, conversionType, InvariantCulture).Should().Be(expectedConvertedValue);
 
         object convertedValue;
 
-        _convertX.TryConvertType(value, conversionType, out convertedValue).Should().BeTrue();
+        ConvertX.Default.TryConvertType(value, conversionType, out convertedValue).Should().BeTrue();
         convertedValue.Should().Be(expectedConvertedValue);
 
-        _convertX.TryConvertType(value, conversionType, CurrentCulture, out convertedValue).Should().BeTrue();
+        ConvertX.Default.TryConvertType(value, conversionType, CurrentCulture, out convertedValue).Should().BeTrue();
         convertedValue.Should().Be(expectedConvertedValue);
 
-        _convertX.TryConvertType(value, conversionType, InvariantCulture, out convertedValue).Should().BeTrue();
+        ConvertX.Default.TryConvertType(value, conversionType, InvariantCulture, out convertedValue).Should().BeTrue();
         convertedValue.Should().Be(expectedConvertedValue);
     }
 
@@ -41,16 +37,16 @@ public class T_ConvertX
         Action act;
         object value = new();
 
-        act = () => _convertX.ConvertType<ConvertX>(value);
+        act = () => ConvertX.Default.ConvertType<ConvertX>(value);
         act.Should().ThrowExactly<NotSupportedException>();
 
-        act = () => _convertX.ConvertType(value, typeof(ConvertX));
+        act = () => ConvertX.Default.ConvertType(value, typeof(ConvertX));
         act.Should().ThrowExactly<NotSupportedException>();
 
-        _convertX.TryConvertType<ConvertX>(value, out var convertedValueConvertX).Should().BeFalse();
+        ConvertX.Default.TryConvertType<ConvertX>(value, out var convertedValueConvertX).Should().BeFalse();
         convertedValueConvertX.Should().BeNull();
 
-        _convertX.TryConvertType(value, typeof(ConvertX), out object convertedValueObject).Should().BeFalse();
+        ConvertX.Default.TryConvertType(value, typeof(ConvertX), out object convertedValueObject).Should().BeFalse();
         convertedValueObject.Should().BeNull();
     }
 
@@ -60,22 +56,22 @@ public class T_ConvertX
         Action act;
         string value = "foobar";
 
-        act = () => _convertX.ConvertType<int>(value);
+        act = () => ConvertX.Default.ConvertType<int>(value);
         act.Should().ThrowExactly<InvalidCastException>().WithInnerExceptionExactly<FormatException>();
 
-        act = () => _convertX.ConvertType<int>(value, throwIntermediateExceptions: true);
+        act = () => ConvertX.Default.ConvertType<int>(value, throwIntermediateExceptions: true);
         act.Should().ThrowExactly<FormatException>();
 
-        act = () => _convertX.ConvertType(value, typeof(int));
+        act = () => ConvertX.Default.ConvertType(value, typeof(int));
         act.Should().ThrowExactly<InvalidCastException>().WithInnerExceptionExactly<FormatException>();
 
-        act = () => _convertX.ConvertType(value, typeof(int), throwIntermediateExceptions: true);
+        act = () => ConvertX.Default.ConvertType(value, typeof(int), throwIntermediateExceptions: true);
         act.Should().ThrowExactly<FormatException>();
 
-        _convertX.TryConvertType<int>(value, out int convertedValueInt).Should().BeFalse();
+        ConvertX.Default.TryConvertType<int>(value, out int convertedValueInt).Should().BeFalse();
         convertedValueInt.Should().Be(0);
 
-        _convertX.TryConvertType(value, typeof(int), out object convertedValueObject).Should().BeFalse();
+        ConvertX.Default.TryConvertType(value, typeof(int), out object convertedValueObject).Should().BeFalse();
         convertedValueObject.Should().Be(0);
     }
 
