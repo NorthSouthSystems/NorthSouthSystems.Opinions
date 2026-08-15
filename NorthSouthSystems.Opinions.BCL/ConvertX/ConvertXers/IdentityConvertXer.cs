@@ -1,6 +1,6 @@
 ﻿namespace NorthSouthSystems;
 
-public class IdentityConvertXer : IConvertXer
+internal class IdentityConvertXer : IConvertXer
 {
     public void Convert(ConvertXRequest request)
     {

@@ -8,16 +8,13 @@ public class T_ConvertX_ArgumentExceptions
         act = () => new ConvertX((IEnumerable<IConvertXer>)null);
         act.Should().ThrowExactly<ArgumentNullException>();
 
-        act = () => new ConvertX(new IdentityConvertXer(), null);
+        act = () => new ConvertX(new StringEmptyConvertXer(), null);
         act.Should().ThrowExactly<ArgumentNullException>();
 
-        act = () => new ConvertX(Array.Empty<IConvertXer>());
-        act.Should().ThrowExactly<ArgumentOutOfRangeException>();
-
-        act = () => new ConvertX().ConvertType("", null);
+        act = () => ConvertX.Default.ConvertType("", null);
         act.Should().ThrowExactly<ArgumentNullException>();
 
-        act = () => new ConvertX().TryConvertType("", null, out _);
+        act = () => ConvertX.Default.TryConvertType("", null, out _);
         act.Should().ThrowExactly<ArgumentNullException>();
     }
 }

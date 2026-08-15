@@ -1,5 +1,9 @@
-﻿public class TEnumFromUnderlyingConvertXer : T_ConvertXer<EnumFromUnderlyingConvertXer>
+﻿using static T_ConvertXer;
+
+public class T_EnumFromUnderlyingConvertXer
 {
+    private static readonly EnumFromUnderlyingConvertXer Converter = new();
+
     // An Enum can be cast from any value that is in range of its UnderlyingType, hence the 8th day of the week test.
     public static IEnumerable<object[]> IsConvertedTrueData =>
         Enumerable.Range(0, 8)
@@ -19,8 +23,8 @@
     [MemberData(nameof(IsConvertedTrueData))]
     public void IsConvertedTrue(object value, object expectedValue)
     {
-        Assert(Convert(value, typeof(DayOfWeek)));
-        Assert(Convert(value, typeof(DayOfWeek?)));
+        Assert(Convert(Converter, value, typeof(DayOfWeek)));
+        Assert(Convert(Converter, value, typeof(DayOfWeek?)));
 
         void Assert(ConvertXRequest request)
         {
@@ -37,8 +41,8 @@
     [InlineData(StringComparison.OrdinalIgnoreCase)]
     public void IsConvertedFalse(object value)
     {
-        Assert(Convert(value, typeof(DayOfWeek)));
-        Assert(Convert(value, typeof(DayOfWeek?)));
+        Assert(Convert(Converter, value, typeof(DayOfWeek)));
+        Assert(Convert(Converter, value, typeof(DayOfWeek?)));
 
         static void Assert(ConvertXRequest request)
         {

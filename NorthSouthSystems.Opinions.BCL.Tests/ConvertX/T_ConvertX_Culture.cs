@@ -1,7 +1,5 @@
 public class T_ConvertX_Culture
 {
-    private static readonly ConvertX _convertX = new();
-
     [Fact]
     public void Culture()
     {
@@ -20,16 +18,16 @@ public class T_ConvertX_Culture
 
         static void IsConvertedTrue(string value, CultureInfo culture, int expectedConvertedValue)
         {
-            _convertX.ConvertType<int>(value, culture).Should().Be(expectedConvertedValue);
-            _convertX.ConvertType(value, typeof(int), culture).Should().Be(expectedConvertedValue);
+            ConvertX.Default.ConvertType<int>(value, culture).Should().Be(expectedConvertedValue);
+            ConvertX.Default.ConvertType(value, typeof(int), culture).Should().Be(expectedConvertedValue);
 
             int convertedValueInt;
             object convertedValueObject;
 
-            _convertX.TryConvertType<int>(value, culture, out convertedValueInt).Should().BeTrue();
+            ConvertX.Default.TryConvertType<int>(value, culture, out convertedValueInt).Should().BeTrue();
             convertedValueInt.Should().Be(expectedConvertedValue);
 
-            _convertX.TryConvertType(value, typeof(int), culture, out convertedValueObject).Should().BeTrue();
+            ConvertX.Default.TryConvertType(value, typeof(int), culture, out convertedValueObject).Should().BeTrue();
             convertedValueObject.Should().Be(expectedConvertedValue);
         }
 
@@ -37,19 +35,19 @@ public class T_ConvertX_Culture
         {
             Action act;
 
-            act = () => _convertX.ConvertType<int>(value, culture);
+            act = () => ConvertX.Default.ConvertType<int>(value, culture);
             act.Should().ThrowExactly<InvalidCastException>().WithInnerExceptionExactly<FormatException>();
 
-            act = () => _convertX.ConvertType(value, typeof(int), culture);
+            act = () => ConvertX.Default.ConvertType(value, typeof(int), culture);
             act.Should().ThrowExactly<InvalidCastException>().WithInnerExceptionExactly<FormatException>();
 
             int convertedValueInt;
             object convertedValueObject;
 
-            _convertX.TryConvertType<int>(value, culture, out convertedValueInt).Should().BeFalse();
+            ConvertX.Default.TryConvertType<int>(value, culture, out convertedValueInt).Should().BeFalse();
             convertedValueInt.Should().Be(0);
 
-            _convertX.TryConvertType(value, typeof(int), culture, out convertedValueObject).Should().BeFalse();
+            ConvertX.Default.TryConvertType(value, typeof(int), culture, out convertedValueObject).Should().BeFalse();
             convertedValueObject.Should().Be(0);
         }
     }

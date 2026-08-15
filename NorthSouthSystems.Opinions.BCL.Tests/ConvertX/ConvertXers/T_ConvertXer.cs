@@ -1,12 +1,10 @@
-﻿public abstract class T_ConvertXer<T>
-    where T : IConvertXer, new()
+﻿internal static class T_ConvertXer
 {
-    private readonly T _converter = new();
-
-    protected ConvertXRequest Convert(object value, Type conversionType, CultureInfo culture = null)
+    internal static ConvertXRequest Convert(IConvertXer converter,
+        object value, Type conversionType, CultureInfo culture = null)
     {
         var request = new ConvertXRequest(value, conversionType, culture ?? CurrentCulture);
-        _converter.Convert(request);
+        converter.Convert(request);
 
         return request;
     }

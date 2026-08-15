@@ -1,5 +1,9 @@
-﻿public class TIdentityConvertXer : T_ConvertXer<IdentityConvertXer>
+﻿using static T_ConvertXer;
+
+public class T_IdentityConvertXer
 {
+    private static readonly IdentityConvertXer Converter = new();
+
     [Theory]
     [InlineData("", typeof(string))]
     [InlineData("foobar", typeof(string))]
@@ -15,7 +19,7 @@
     [InlineData(DayOfWeek.Monday, typeof(DayOfWeek?))]
     public void IsConvertedTrue(object value, Type conversionType)
     {
-        var request = Convert(value, conversionType);
+        var request = Convert(Converter, value, conversionType);
 
         request.IsConverted.Should().BeTrue();
         request.ConvertedValue.Should().BeSameAs(value);
@@ -43,7 +47,7 @@
     [InlineData("Monday", typeof(DayOfWeek?))]
     public void IsConvertedFalse(object value, Type conversionType)
     {
-        var request = Convert(value, conversionType);
+        var request = Convert(Converter, value, conversionType);
 
         request.IsConverted.Should().BeFalse();
         request.ConvertedValue.Should().BeNull();

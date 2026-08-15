@@ -14,21 +14,21 @@ public class ConvertX
 {
     // Construction
 
-    public static IEnumerable<IConvertXer> DefaultConverters { get; } =
+    private static readonly IReadOnlyList<IConvertXer> RequiredConverters =
     [
-        new IdentityConvertXer(),
         new NullConvertXer(),
+        new IdentityConvertXer()
+    ];
+
+    public static IReadOnlyList<IConvertXer> DefaultConverters { get; } =
+    [
         new StringEmptyConvertXer(),
         new EnumFromUnderlyingConvertXer(),
         new SystemConvertConvertXer()
     ];
 
-    // Order is important! Must be initialized after DefaultTypeConverters because they are used in the constructor.
-    public static ConvertX Default { get; } = new();
-
-    public ConvertX()
-        : this(DefaultConverters)
-    { }
+    // Order is important! Must be initialized after DefaultConverters because they are used in the constructor.
+    public static ConvertX Default { get; } = new(DefaultConverters);
 
     public ConvertX(params IConvertXer[] converters)
         : this((IEnumerable<IConvertXer>)converters)
@@ -37,13 +37,10 @@ public class ConvertX
     public ConvertX(IEnumerable<IConvertXer> converters)
     {
         // Always "make a copy" of the enumerable in case it is a modifiable collection.
-        _converters = [.. Throw.IfNull(converters)];
+        _converters = [.. RequiredConverters, .. Throw.IfNull(converters)];
 
         if (_converters.Any(c => c is null))
             throw new ArgumentNullException(nameof(converters));
-
-        if (!_converters.Any())
-            throw new ArgumentOutOfRangeException(nameof(converters));
     }
 
     private readonly IReadOnlyList<IConvertXer> _converters;
