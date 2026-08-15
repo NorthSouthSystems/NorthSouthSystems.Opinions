@@ -3,9 +3,9 @@
 {
     private readonly T _converter = new();
 
-    protected ConvertXRequest Convert(object value, Type conversionType, IFormatProvider provider = null)
+    protected ConvertXRequest Convert(object value, Type conversionType, CultureInfo culture = null)
     {
-        var request = new ConvertXRequest(value, conversionType, provider ?? CurrentCulture);
+        var request = new ConvertXRequest(value, conversionType, culture ?? CurrentCulture);
         _converter.Convert(request);
 
         return request;

@@ -51,17 +51,17 @@ public class ConvertX
     // ConvertType Generic and Object
 
     public TConversionType? ConvertType<TConversionType>(object? value,
-        IFormatProvider? provider = null, bool throwIntermediateExceptions = false)
+        CultureInfo? culture = null, bool throwIntermediateExceptions = false)
     {
-        var request = ConvertTypeImpl(value, typeof(TConversionType), provider, throwIntermediateExceptions, false);
+        var request = ConvertTypeImpl(value, typeof(TConversionType), culture, throwIntermediateExceptions, false);
 
         return request.IsConverted ? (TConversionType?)request.ConvertedValue : throw request.ExceptionToThrow();
     }
 
     public object? ConvertType(object? value, Type conversionType,
-        IFormatProvider? provider = null, bool throwIntermediateExceptions = false)
+        CultureInfo? culture = null, bool throwIntermediateExceptions = false)
     {
-        var request = ConvertTypeImpl(value, conversionType, provider, throwIntermediateExceptions, false);
+        var request = ConvertTypeImpl(value, conversionType, culture, throwIntermediateExceptions, false);
 
         return request.IsConverted ? request.ConvertedValue : throw request.ExceptionToThrow();
     }
@@ -73,17 +73,17 @@ public class ConvertX
         TryConvertType(value, null, false, out convertedValue);
 
     public bool TryConvertType<TConversionType>(object? value,
-        IFormatProvider? provider, out TConversionType? convertedValue) =>
-        TryConvertType(value, provider, false, out convertedValue);
+        CultureInfo? culture, out TConversionType? convertedValue) =>
+        TryConvertType(value, culture, false, out convertedValue);
 
     public bool TryConvertType<TConversionType>(object? value,
         bool abortIntermediateExceptions, out TConversionType? convertedValue) =>
         TryConvertType(value, null, abortIntermediateExceptions, out convertedValue);
 
     public bool TryConvertType<TConversionType>(object? value,
-        IFormatProvider? provider, bool abortIntermediateExceptions, out TConversionType? convertedValue)
+        CultureInfo? culture, bool abortIntermediateExceptions, out TConversionType? convertedValue)
     {
-        var request = ConvertTypeImpl(value, typeof(TConversionType), provider, false, abortIntermediateExceptions);
+        var request = ConvertTypeImpl(value, typeof(TConversionType), culture, false, abortIntermediateExceptions);
 
         convertedValue = request.IsConverted ? (TConversionType?)request.ConvertedValue : default;
 
@@ -97,17 +97,17 @@ public class ConvertX
         TryConvertType(value, conversionType, null, false, out convertedValue);
 
     public bool TryConvertType(object? value, Type conversionType,
-        IFormatProvider? provider, out object? convertedValue) =>
-        TryConvertType(value, conversionType, provider, false, out convertedValue);
+        CultureInfo? culture, out object? convertedValue) =>
+        TryConvertType(value, conversionType, culture, false, out convertedValue);
 
     public bool TryConvertType(object? value, Type conversionType,
         bool abortIntermediateExceptions, out object? convertedValue) =>
         TryConvertType(value, conversionType, null, abortIntermediateExceptions, out convertedValue);
 
     public bool TryConvertType(object? value, Type conversionType,
-        IFormatProvider? provider, bool abortIntermediateExceptions, out object? convertedValue)
+        CultureInfo? culture, bool abortIntermediateExceptions, out object? convertedValue)
     {
-        var request = ConvertTypeImpl(value, conversionType, provider, false, abortIntermediateExceptions);
+        var request = ConvertTypeImpl(value, conversionType, culture, false, abortIntermediateExceptions);
 
         // We want to have complete parity with TryConvertType<TConversionType>, so whenever conversion didn't occur,
         // we use our extension method to "default" convertedValue instead of simply always setting null.
@@ -119,9 +119,9 @@ public class ConvertX
     // Implementation
 
     private ConvertXRequest ConvertTypeImpl(object? value, Type conversionType,
-        IFormatProvider? provider, bool throwIntermediateExceptions, bool abortIntermediateExceptions)
+        CultureInfo? culture, bool throwIntermediateExceptions, bool abortIntermediateExceptions)
     {
-        var request = new ConvertXRequest(value, conversionType, provider ?? CurrentCulture);
+        var request = new ConvertXRequest(value, conversionType, culture ?? CurrentCulture);
 
         foreach (var converter in _converters)
         {

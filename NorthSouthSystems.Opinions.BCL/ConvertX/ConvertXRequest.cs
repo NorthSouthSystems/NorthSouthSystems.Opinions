@@ -1,19 +1,17 @@
-﻿using System.Globalization;
-
-namespace NorthSouthSystems;
+﻿namespace NorthSouthSystems;
 
 public class ConvertXRequest
 {
-    internal ConvertXRequest(object? value, Type conversionType, IFormatProvider provider)
+    internal ConvertXRequest(object? value, Type conversionType, CultureInfo culture)
     {
         Value = value;
-        ConversionType = conversionType ?? throw new ArgumentNullException(nameof(conversionType));
-        Provider = provider ?? throw new ArgumentNullException(nameof(provider));
+        ConversionType = Throw.IfNull(conversionType);
+        Culture = Throw.IfNull(culture);
     }
 
     public object? Value { get; }
     public Type ConversionType { get; }
-    public IFormatProvider Provider { get; }
+    public CultureInfo Culture { get; }
 
     public bool ConversionTypeAllowsNull => !ConversionType.IsValueType || ConversionType.IsGenericNullable();
 
