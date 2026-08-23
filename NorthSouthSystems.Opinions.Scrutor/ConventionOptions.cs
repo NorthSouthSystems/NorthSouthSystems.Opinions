@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.Reflection;
 
 namespace NorthSouthSystems.Scrutor;
 
@@ -31,4 +32,14 @@ public static class ConventionOptionsExtensions
 
         static void ConfigureNoop(T _) { }
     }
+}
+
+internal class ConventionOptionsRegistrationStrategy : RegistrationStrategy
+{
+    public override void Apply(IServiceCollection services, ServiceDescriptor descriptor) =>
+        AddConventionOptionsMethod.MakeGenericMethod(descriptor.ImplementationType ?? descriptor.KeyedImplementationType!)
+            .Invoke(null, [services, null, null]);
+
+    private static readonly MethodInfo AddConventionOptionsMethod = typeof(ConventionOptionsExtensions)
+        .GetMethod(nameof(ConventionOptionsExtensions.AddConventionOptions), BindingFlags.Static | BindingFlags.Public)!;
 }

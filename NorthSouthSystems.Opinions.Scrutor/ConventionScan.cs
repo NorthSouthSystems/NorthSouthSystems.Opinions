@@ -12,26 +12,13 @@ public static class ConventionScanExtensions
         return Throw.IfNull(services)
             .Scan(scan =>
                 scan.FromAssemblies(assembly)
-                    .AddClasses(filter => filter.WithAttribute<ConventionSingletonAttribute>(), false)
-                    .AsSelfWithInterfaces()
-                    .WithSingletonLifetime()
-                    .AddClasses(filter => filter.WithAttribute<ConventionScopedAttribute>(), false)
-                    .AsSelfWithInterfaces()
-                    .WithScopedLifetime()
-                    .AddClasses(filter => filter.WithAttribute<ConventionTransientAttribute>(), false)
-                    .AsSelfWithInterfaces()
-                    .WithTransientLifetime()
-                    .AddClasses(filter => filter.WithAttribute<ConventionOptionsAttribute>(), false)
-                    .UsingRegistrationStrategy(new ConventionOptionsRegistrationStrategy()));
+                    .Add<ConventionLifetimeAttribute>(new ConventionLifetimeRegistrationStrategy())
+                    .Add<ConventionOptionsAttribute>(new ConventionOptionsRegistrationStrategy()));
     }
 
-    private class ConventionOptionsRegistrationStrategy : RegistrationStrategy
-    {
-        public override void Apply(IServiceCollection services, ServiceDescriptor descriptor) =>
-            AddConventionOptionsMethod.MakeGenericMethod(descriptor.ServiceType)
-                .Invoke(null, [services, null, null]);
-
-        private static readonly MethodInfo AddConventionOptionsMethod = typeof(ConventionOptionsExtensions)
-            .GetMethod(nameof(ConventionOptionsExtensions.AddConventionOptions), BindingFlags.Static | BindingFlags.Public)!;
-    }
+    private static IServiceTypeSelector Add<T>(this IImplementationTypeSelector selector, RegistrationStrategy strategy)
+        where T : Attribute =>
+        selector.AddClasses(filter => filter.WithAttribute<T>(), false)
+            .AsSelfWithInterfaces()
+            .UsingRegistrationStrategy(strategy);
 }
