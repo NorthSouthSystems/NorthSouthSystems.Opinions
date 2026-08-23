@@ -18,9 +18,7 @@ internal class ConventionLifetimeRegistrationStrategy : RegistrationStrategy
     public override void Apply(IServiceCollection services, ServiceDescriptor descriptor)
     {
         // ServiceDescription.ImplementationType and KeyImplementationType are mutually exclusive.
-        var implementationType = descriptor.ImplementationType
-            ?? throw new NotSupportedException(
-                string.Create(InvariantCulture, $"Service '{descriptor.ServiceType}' uses KeyedImplementationType."));
+        var implementationType = descriptor.ImplementationType ?? descriptor.KeyedImplementationType!;
 
         var lifetimeAttribute = implementationType.GetCustomAttribute<ConventionLifetimeAttribute>();
 
@@ -33,7 +31,7 @@ internal class ConventionLifetimeRegistrationStrategy : RegistrationStrategy
         // Use default DI behavior.
         if (publicConstructors.Length > 0)
         {
-            services.Add(new(descriptor.ServiceType, implementationType, lifetime));
+            services.Add(new(descriptor.ServiceType, descriptor.ServiceKey, implementationType, lifetime));
             return;
         }
 
@@ -51,13 +49,14 @@ internal class ConventionLifetimeRegistrationStrategy : RegistrationStrategy
                 throw new InvalidOperationException(
                     string.Create(InvariantCulture, $"Type '{implementationType}' has multiple internal constructors."));
             default:
-                services.Add(new(descriptor.ServiceType, serviceProvider => Construct(internalConstructors[0], serviceProvider), lifetime));
+                services.Add(new(descriptor.ServiceType, descriptor.ServiceKey,
+                    (serviceProvider, serviceKey) => Construct(internalConstructors[0], serviceProvider, serviceKey), lifetime));
                 break;
         }
 
     }
 
-    private static object Construct(ConstructorInfo constructor, IServiceProvider serviceProvider)
+    private static object Construct(ConstructorInfo constructor, IServiceProvider serviceProvider, object? _)
     {
         var arguments = constructor.GetParameters().Select(p => serviceProvider.GetRequiredService(p.ParameterType));
 
