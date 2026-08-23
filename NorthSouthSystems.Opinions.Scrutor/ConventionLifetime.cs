@@ -13,18 +13,31 @@ public abstract class ConventionLifetimeAttribute(ServiceLifetime lifetime) : At
     public ServiceLifetime Lifetime { get; } = lifetime;
 }
 
-internal class ConventionLifetimeRegistrationStrategy : RegistrationStrategy
+// The ServiceLifetime constructor parameter is required to register instances and factories correctly.
+internal class ConventionLifetimeRegistrationStrategy(ServiceLifetime lifetime) : RegistrationStrategy
 {
     public override void Apply(IServiceCollection services, ServiceDescriptor descriptor)
     {
-        // ServiceDescription.ImplementationType and KeyImplementationType are mutually exclusive.
+        // Do NOT combine Keyed checks into a pattern because patterns don't guarantee order and Keyed* throw.
+        if (descriptor.ImplementationInstance is not null
+            || (descriptor.IsKeyedService && descriptor.KeyedImplementationInstance is not null))
+        {
+            services.Add(descriptor);
+            return;
+        }
+
+        // Do NOT combine Keyed checks into a pattern because patterns don't guarantee order and Keyed* throw.
+        if (descriptor.ImplementationFactory is not null
+            || (descriptor.IsKeyedService && descriptor.KeyedImplementationFactory is not null))
+        {
+            services.Add(
+                descriptor.IsKeyedService
+                    ? new(descriptor.ServiceType, descriptor.ServiceKey, descriptor.KeyedImplementationFactory!, lifetime)
+                    : new(descriptor.ServiceType, descriptor.ImplementationFactory!, lifetime));
+            return;
+        }
+
         var implementationType = descriptor.ImplementationType ?? descriptor.KeyedImplementationType!;
-
-        var lifetimeAttribute = implementationType.GetCustomAttribute<ConventionLifetimeAttribute>();
-
-        var lifetime = lifetimeAttribute?.Lifetime
-            ?? throw new InvalidOperationException(
-                string.Create(InvariantCulture, $"Type '{implementationType}' has no {nameof(ConventionLifetimeAttribute)}."));
 
         var publicConstructors = implementationType.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
 

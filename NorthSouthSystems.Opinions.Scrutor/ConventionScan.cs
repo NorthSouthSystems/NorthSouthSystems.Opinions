@@ -12,7 +12,9 @@ public static class ConventionScanExtensions
         return Throw.IfNull(services)
             .Scan(scan =>
                 scan.FromAssemblies(assembly)
-                    .Add<ConventionLifetimeAttribute>(new ConventionLifetimeRegistrationStrategy())
+                    .Add<ConventionTransientAttribute>(new ConventionLifetimeRegistrationStrategy(ServiceLifetime.Transient))
+                    .Add<ConventionScopedAttribute>(new ConventionLifetimeRegistrationStrategy(ServiceLifetime.Scoped))
+                    .Add<ConventionSingletonAttribute>(new ConventionLifetimeRegistrationStrategy(ServiceLifetime.Singleton))
                     .Add<ConventionOptionsAttribute>(new ConventionOptionsRegistrationStrategy()));
     }
 
