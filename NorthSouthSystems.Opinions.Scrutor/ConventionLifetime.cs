@@ -48,6 +48,12 @@ internal class ConventionLifetimeRegistrationStrategy(ServiceLifetime lifetime) 
             return;
         }
 
+        // Due to limitations of the Microsoft DI container, a factory cannot be built to construct from an open generic
+        // ServiceType because the DI container does not provide the generic type parameters to the factory signature.
+        if (implementationType.IsGenericTypeDefinition)
+            throw new NotSupportedException(
+                string.Create(InvariantCulture, $"Type '{implementationType}' is an open generic."));
+
         var internalConstructors = implementationType
             .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
             .Where(c => c.IsAssembly)

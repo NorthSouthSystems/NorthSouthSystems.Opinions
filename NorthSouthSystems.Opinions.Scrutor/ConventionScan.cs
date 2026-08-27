@@ -15,7 +15,10 @@ public static class ConventionScanExtensions
                     .Add<ConventionTransientAttribute>(new ConventionLifetimeRegistrationStrategy(ServiceLifetime.Transient))
                     .Add<ConventionScopedAttribute>(new ConventionLifetimeRegistrationStrategy(ServiceLifetime.Scoped))
                     .Add<ConventionSingletonAttribute>(new ConventionLifetimeRegistrationStrategy(ServiceLifetime.Singleton))
-                    .Add<ConventionOptionsAttribute>(new ConventionOptionsRegistrationStrategy()));
+                    .Add<ConventionOptionsAttribute>(new ConventionOptionsRegistrationStrategy())
+                    .AddClasses(filter => filter.AssignableTo<IConventionScanCustom>())
+                    .AsSelf()
+                    .UsingRegistrationStrategy(new ConventionScanCustomStrategy()));
     }
 
     private static IServiceTypeSelector Add<T>(this IImplementationTypeSelector selector, RegistrationStrategy strategy)
