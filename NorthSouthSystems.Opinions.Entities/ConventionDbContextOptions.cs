@@ -1,13 +1,13 @@
 ﻿namespace NorthSouthSystems.Entities;
 
-[ConventionOptions]
+[ScanRegisterConventionOptions]
 public sealed class ConventionDbContextOptions
 {
     public string? ReadOnlyConnectionString { get; set; }
     public string? ReadWriteConnectionString { get; set; }
 }
 
-[ConventionSingleton]
+[ScanRegisterSingleton]
 public sealed class ConventionDbContextOptionsValidator : AbstractValidator<ConventionDbContextOptions>
 {
     public ConventionDbContextOptionsValidator()

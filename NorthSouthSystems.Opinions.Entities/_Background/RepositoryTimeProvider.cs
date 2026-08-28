@@ -5,13 +5,13 @@ using Microsoft.Extensions.Options;
 
 namespace NorthSouthSystems.Entities;
 
-[ConventionSingleton]
+[ScanRegisterSingleton]
 internal sealed class RepositoryTimeProviderWrapper(RepositoryTimeProvider inner) : TimeProvider
 {
     public override DateTimeOffset GetUtcNow() => Throw.IfNull(inner).GetUtcNow();
 }
 
-[ConventionSingleton]
+[ScanRegisterSingleton]
 public sealed partial class RepositoryTimeProvider(IOptions<RepositoryTimeProviderOptions> options,
     IServiceScopeFactory serviceScopeFactory, ILogger<RepositoryTimeProvider> logger)
     : BackgroundService

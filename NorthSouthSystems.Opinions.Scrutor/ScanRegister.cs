@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace NorthSouthSystems.Scrutor;
 
-public static class ConventionScanExtensions
+public static class ScanRegisterExtensions
 {
     public static IServiceCollection ConventionScanAssembly(this IServiceCollection services, Assembly assembly)
     {
@@ -12,13 +12,13 @@ public static class ConventionScanExtensions
         return Throw.IfNull(services)
             .Scan(scan =>
                 scan.FromAssemblies(assembly)
-                    .Add<ConventionTransientAttribute>(new ConventionLifetimeRegistrationStrategy(ServiceLifetime.Transient))
-                    .Add<ConventionScopedAttribute>(new ConventionLifetimeRegistrationStrategy(ServiceLifetime.Scoped))
-                    .Add<ConventionSingletonAttribute>(new ConventionLifetimeRegistrationStrategy(ServiceLifetime.Singleton))
-                    .Add<ConventionOptionsAttribute>(new ConventionOptionsRegistrationStrategy())
-                    .AddClasses(filter => filter.AssignableTo<IConventionScanCustom>())
+                    .Add<ScanRegisterTransientAttribute>(new ScanRegisterLifetimeStrategy(ServiceLifetime.Transient))
+                    .Add<ScanRegisterScopedAttribute>(new ScanRegisterLifetimeStrategy(ServiceLifetime.Scoped))
+                    .Add<ScanRegisterSingletonAttribute>(new ScanRegisterLifetimeStrategy(ServiceLifetime.Singleton))
+                    .Add<ScanRegisterConventionOptionsAttribute>(new ScanRegisterConventionOptionsStrategy())
+                    .AddClasses(filter => filter.AssignableTo(typeof(IScanRegisterCustom)))
                     .AsSelf()
-                    .UsingRegistrationStrategy(new ConventionScanCustomStrategy()));
+                    .UsingRegistrationStrategy(new ScanRegisterCustomStrategy()));
     }
 
     private static IServiceTypeSelector Add<T>(this IImplementationTypeSelector selector, RegistrationStrategy strategy)

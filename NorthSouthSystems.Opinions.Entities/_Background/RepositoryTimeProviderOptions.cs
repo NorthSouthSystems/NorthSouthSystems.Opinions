@@ -1,12 +1,12 @@
 namespace NorthSouthSystems.Entities;
 
-[ConventionOptions]
+[ScanRegisterConventionOptions]
 public sealed class RepositoryTimeProviderOptions
 {
     public TimeSpan PollingDelay { get; set; } = TimeSpan.FromMinutes(5);
 }
 
-[ConventionSingleton]
+[ScanRegisterSingleton]
 public sealed class RepositoryTimeProviderOptionsValidator : AbstractValidator<RepositoryTimeProviderOptions>
 {
     public RepositoryTimeProviderOptionsValidator()

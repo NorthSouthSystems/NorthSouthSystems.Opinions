@@ -7,7 +7,7 @@ using System.Collections.Concurrent;
 
 namespace NorthSouthSystems.Entities;
 
-[ConventionSingleton]
+[ScanRegisterSingleton]
 public sealed partial class RepositoryTrackedCacheVersionProvider(
     IOptions<RepositoryTrackedCacheVersionProviderOptions> options, IServiceScopeFactory serviceScopeFactory,
     ILogger<RepositoryTrackedCacheVersionProvider> logger)

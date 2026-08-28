@@ -3,18 +3,18 @@ using System.Reflection;
 
 namespace NorthSouthSystems.Scrutor;
 
-public sealed class ConventionTransientAttribute() : ConventionLifetimeAttribute(ServiceLifetime.Transient);
-public sealed class ConventionScopedAttribute() : ConventionLifetimeAttribute(ServiceLifetime.Scoped);
-public sealed class ConventionSingletonAttribute() : ConventionLifetimeAttribute(ServiceLifetime.Singleton);
+public sealed class ScanRegisterTransientAttribute() : ScanRegisterLifetimeAttribute(ServiceLifetime.Transient);
+public sealed class ScanRegisterScopedAttribute() : ScanRegisterLifetimeAttribute(ServiceLifetime.Scoped);
+public sealed class ScanRegisterSingletonAttribute() : ScanRegisterLifetimeAttribute(ServiceLifetime.Singleton);
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
-public abstract class ConventionLifetimeAttribute(ServiceLifetime lifetime) : Attribute
+public abstract class ScanRegisterLifetimeAttribute(ServiceLifetime lifetime) : Attribute
 {
     public ServiceLifetime Lifetime { get; } = lifetime;
 }
 
 // The ServiceLifetime constructor parameter is required to register instances and factories correctly.
-internal class ConventionLifetimeRegistrationStrategy(ServiceLifetime lifetime) : RegistrationStrategy
+internal class ScanRegisterLifetimeStrategy(ServiceLifetime lifetime) : RegistrationStrategy
 {
     public override void Apply(IServiceCollection services, ServiceDescriptor descriptor)
     {
