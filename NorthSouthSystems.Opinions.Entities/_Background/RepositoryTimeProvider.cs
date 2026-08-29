@@ -74,13 +74,13 @@ public sealed partial class RepositoryTimeProvider(IOptions<RepositoryTimeProvid
             // We use a third for the sake of a "better result".
             var time = new[]
                 {
-                    await Query().ConfigureAwait(false),
-                    await Query().ConfigureAwait(false),
-                    await Query().ConfigureAwait(false)
+                    await QueryAsync().ConfigureAwait(false),
+                    await QueryAsync().ConfigureAwait(false),
+                    await QueryAsync().ConfigureAwait(false)
                 }
                 .MinBy(r => r.QueryDuration)!;
 
-            async Task<RepositoryTime> Query()
+            async Task<RepositoryTime> QueryAsync()
             {
                 long systemTimestampBefore = TimeProvider.System.GetTimestamp();
                 var repositoryTime = await atom.QuerySysDateTimeOffset(cancellationToken).ConfigureAwait(false);

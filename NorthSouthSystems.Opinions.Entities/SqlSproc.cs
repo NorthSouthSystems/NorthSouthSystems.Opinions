@@ -28,6 +28,11 @@ public static class SqlSprocExtensions
         Throw.IfNullOrWhiteSpace(sprocName);
         parameters ??= [];
 
+        sprocName = sprocName.RemoveSuffix("Async", StringComparison.OrdinalIgnoreCase);
+
+        if (sprocName.Length == 0)
+            throw new ArgumentOutOfRangeException(nameof(sprocName), "Must not be 'Async'.");
+
         var returnParameter = parameters.SingleOrDefault(p => p.Direction == ParameterDirection.ReturnValue);
 
         string? returnPrefix = returnParameter is not null

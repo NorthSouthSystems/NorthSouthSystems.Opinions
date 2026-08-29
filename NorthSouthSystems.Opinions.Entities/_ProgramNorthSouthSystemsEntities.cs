@@ -14,7 +14,7 @@ public static class ProgramNorthSouthSystemsEntities
         return services;
     }
 
-    public static async Task InitNorthSouthSystemsEntitiesDefaults(this IServiceProvider serviceProvider, bool excludeRepository = false)
+    public static async Task InitNorthSouthSystemsEntitiesDefaultsAsync(this IServiceProvider serviceProvider, bool excludeRepository = false)
     {
         if (!excludeRepository)
         {
