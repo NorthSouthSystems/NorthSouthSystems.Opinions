@@ -11,7 +11,7 @@ public interface IAtomicCommandRepository : IReadOnlyRepository
     // We do NOT use IReadOnlyRepository because it is potentially served by a server replica.
     // We do NOT use IUnitOfWorkRepository because it is unnecessary for this read-only, non-transactional, and untracked query.
     // That leaves us with IAtomicCommandRepository.
-    Task<DateTimeOffset> QuerySysDateTimeOffset(CancellationToken cancellationToken);
+    Task<DateTimeOffset> QuerySysDateTimeOffsetAsync(CancellationToken cancellationToken);
 }
 
 public interface IUnitOfWorkRepository : IReadOnlyRepository

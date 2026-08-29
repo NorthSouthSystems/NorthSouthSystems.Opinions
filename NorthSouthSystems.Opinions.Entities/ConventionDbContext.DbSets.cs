@@ -4,7 +4,7 @@ namespace NorthSouthSystems.Entities;
 
 public abstract partial class ConventionDbContext<TDbContext>
 {
-    public Task<DateTimeOffset> QuerySysDateTimeOffset(CancellationToken cancellationToken) =>
+    public Task<DateTimeOffset> QuerySysDateTimeOffsetAsync(CancellationToken cancellationToken) =>
         Database.SqlQueryRaw<DateTimeOffset>("SELECT SYSDATETIMEOFFSET() AS [Value]") // EF Core requires [Value].
             .SingleAsync(cancellationToken);
 

@@ -4,6 +4,9 @@ using System.Collections.Concurrent;
 
 namespace NorthSouthSystems.Entities;
 
+// TODO: Evaluate the AsyncLazy implementations available (there are several, and none are in the BCL) and apply it.
+#pragma warning disable VSTHRD011 // Lazy<Task<T>>.Value can deadlock. Use AsyncLazy<T> instead. (https://microsoft.github.io/vs-threading/analyzers/VSTHRD011.html)
+
 /// <remarks>GetOrCreateAsync uses a single-flight pattern like Nss.Bcl/Threading/Tasks/SingleFlight; however, due to
 /// the cache tracking and the extra SetWhenNotNull methods in this class, we cannot delegate to it and instead have
 /// copied most of its code here.</remarks>
@@ -241,3 +244,5 @@ public abstract class TrackedCache<TKey, TValue>(ITrackedCacheVersionProvider ve
         return values;
     }
 }
+
+#pragma warning restore

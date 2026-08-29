@@ -83,7 +83,7 @@ public sealed partial class RepositoryTimeProvider(IOptions<RepositoryTimeProvid
             async Task<RepositoryTime> QueryAsync()
             {
                 long systemTimestampBefore = TimeProvider.System.GetTimestamp();
-                var repositoryTime = await atom.QuerySysDateTimeOffset(cancellationToken).ConfigureAwait(false);
+                var repositoryTime = await atom.QuerySysDateTimeOffsetAsync(cancellationToken).ConfigureAwait(false);
                 long systemTimestampAfter = TimeProvider.System.GetTimestamp();
 
                 return new(systemTimestampBefore, repositoryTime, systemTimestampAfter);

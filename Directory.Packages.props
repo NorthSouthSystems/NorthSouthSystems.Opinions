@@ -18,7 +18,7 @@
         <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(DotNetVersion)"/>
         <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(DotNetVersion)"/>
         <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(DotNetVersion)"/>
-        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.9.0"/>
+        <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23"/>
         <PackageVersion Include="morelinq" Version="4.4.0"/>
         <PackageVersion Include="Nerdbank.GitVersioning" Version="3.10.91"/>
         <PackageVersion Include="Nerdbank.MessagePack" Version="1.2.36"/>
@@ -29,7 +29,6 @@
         <PackageVersion Include="System.IO.Hashing" Version="$(DotNetVersion)"/>
         <PackageVersion Include="Vogen" Version="8.0.7"/>
         <PackageVersion Include="xunit.v3" Version="3.2.2"/>
-        <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5"/>
 
         <!-- Transitive Pinning -->
         <!-- This will help prevent large(r) potentially breaking version bumps, and it will also -->
