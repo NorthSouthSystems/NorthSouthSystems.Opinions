@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-public class T_TypeX
+﻿public class T_TypeX
 {
     [Fact]
     public void Default()
